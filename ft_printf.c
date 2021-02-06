@@ -1,28 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jiwchoi <jiwchoi@student.42seoul.k>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/02/06 15:04:57 by jiwchoi           #+#    #+#             */
-/*   Updated: 2021/02/06 17:32:05 by jiwchoi          ###   ########.fr       */
+/*   Created: 2021/02/06 18:15:50 by jiwchoi           #+#    #+#             */
+/*   Updated: 2021/02/06 18:43:27 by jiwchoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "ft_printf.h"
 #include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <stdarg.h>
-
-typedef struct	s_flag
-{
-	int		minus;
-	int		zero;
-	int		dot;
-	int		width;
-	int		pre;
-}				t_flag;
 
 void	ft_init(t_flag *t)
 {
@@ -30,10 +19,10 @@ void	ft_init(t_flag *t)
 	t->zero = 0;
 	t->dot = 0;
 	t->width = 0;
-	t->pre = 0;
+	t->precision = 0;
 }
 
-int		ft_parse(const char *fmt, t_flag *flag)
+int		ft_parse(const char *fmt, t_flag *flag, va_list ap)
 {
 	if (*fmt == '-' || *fmt == '0')
 	{
@@ -41,19 +30,33 @@ int		ft_parse(const char *fmt, t_flag *flag)
 			flag->minus = 1;
 		flag->zero = 1;
 	}
-	if (*fmt == '*' || (*fmt >= '1' && *fmt <= '9'))
+	if (*fmt == '*' || ft_isdigit(*fmt))
+	{
+		if (*fmt == '*')
+			flag->width = va_arg(ap, int);
+		flag->width = ft_atoi(fmt);
+	}
+	// atoi 이후 포인터 이동 필요
+	/*
+	if (*fmt == '.')
+	{
+		if (*fmt == '*' || ft_isdigit(*fmt))
+		{
+			if (*fmt == '*')
+				flag->precision = va(ap, int);
+			flag->precision = ft_atoi(fmt);
+		}
+	}*/
 	return (0);
 }
 
 int		ft_printf(const char *fmt, ...)
 {
 	va_list		ap;
-	t_flag		*flag;
+	t_flag		flag;
 
 	va_start(ap, fmt);
-	flag = malloc(sizeof(t_flag));
-	ft_init(flag);
-	printf("%d\n", flag->minus);
+	ft_init(&flag);
 	while (*fmt)
 	{
 		if (*fmt != '%')
@@ -62,10 +65,11 @@ int		ft_printf(const char *fmt, ...)
 			continue;
 		}
 		fmt++;
-		ft_parse(fmt, flag);
+		ft_parse(fmt, &flag, ap);
 	}
 
 	printf("%d\n", flag->minus);
+	printf("%d\n", flag->width);
 	return (0);
 }
 
