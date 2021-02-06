@@ -6,7 +6,7 @@
 /*   By: jiwchoi <jiwchoi@student.42seoul.k>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/06 19:01:11 by jiwchoi           #+#    #+#             */
-/*   Updated: 2021/02/06 19:01:17 by jiwchoi          ###   ########.fr       */
+/*   Updated: 2021/02/06 20:19:21 by jiwchoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static int		check_over_range(unsigned long long num, int sign)
 	return (num * sign);
 }
 
-int				ft_atoi(const char *nptr)
+int				ft_atoi(const char **nptr)
 {
 	int					i;
 	int					sign;
@@ -48,18 +48,18 @@ int				ft_atoi(const char *nptr)
 	i = 0;
 	sign = 1;
 	num = 0;
-	while (ft_isspace(nptr[i]))
-		i++;
-	if (nptr[i] == '-' || nptr[i] == '+')
+	while (ft_isspace(**nptr))
+		*nptr += 1;
+	if (**nptr == '-' || **nptr == '+')
 	{
-		if (nptr[i] == '-')
+		if (**nptr == '-')
 			sign *= -1;
 		i++;
 	}
-	while (nptr[i] >= '0' && nptr[i] <= '9')
+	while (**nptr >= '0' && **nptr <= '9')
 	{
 		num *= 10;
-		num += (nptr[i++] - '0');
+		num += (*(*nptr)++ - '0');
 	}
 	return (check_over_range(num, sign));
 }

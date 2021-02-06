@@ -6,7 +6,7 @@
 /*   By: jiwchoi <jiwchoi@student.42seoul.k>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/06 18:15:50 by jiwchoi           #+#    #+#             */
-/*   Updated: 2021/02/06 18:54:02 by jiwchoi          ###   ########.fr       */
+/*   Updated: 2021/02/06 20:59:13 by jiwchoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,29 +26,15 @@ int		ft_parse(const char *fmt, t_flag *flag, va_list ap)
 {
 	if (*fmt == '-' || *fmt == '0')
 	{
-		if (*fmt++ == '-')
+		if (*fmt == '-')
 			flag->minus = 1;
-		flag->zero = 1;
-	}
-	if (*fmt == '*' || ft_isdigit(*fmt))
-	{
-		if (*fmt == '*')
-			flag->width = va_arg(ap, int);
 		else
-			flag->width = ft_atoi(fmt);
+			flag->zero = 1;
+		fmt++;
 	}
-	// atoi 이후 포인터 이동 필요
-	/*
-	if (*fmt == '.')
-	{
-		if (*fmt == '*' || ft_isdigit(*fmt))
-		{
-			if (*fmt == '*')
-				flag->precision = va(ap, int);
-			else
-				flag->precision = ft_atoi(fmt);
-		}
-	}*/
+	flag->width = ft_parse_width_precision(&fmt, ap);
+	if (*fmt == '.' && fmt++)
+		flag->precision = ft_parse_width_precision(&fmt, ap);
 	return (0);
 }
 
@@ -70,13 +56,14 @@ int		ft_printf(const char *fmt, ...)
 		ft_parse(fmt, &flag, ap);
 	}
 
-	printf("%d\n", flag->minus);
-	printf("%d\n", flag->width);
+	printf("%d\n", flag.minus);
+	printf("%d\n", flag.width);
+	printf("%d\n", flag.precision);
 	return (0);
 }
 
 int		main(void)
 {
-	ft_printf("Today is %-10.3d.\n", 6);
+	ft_printf("Today is %-*.*d.\n", 11, 4, 6);
 	return (0);
 }
