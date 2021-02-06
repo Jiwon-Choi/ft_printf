@@ -6,7 +6,7 @@
 /*   By: jiwchoi <jiwchoi@student.42seoul.k>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/06 18:59:56 by jiwchoi           #+#    #+#             */
-/*   Updated: 2021/02/06 20:48:41 by jiwchoi          ###   ########.fr       */
+/*   Updated: 2021/02/06 21:43:19 by jiwchoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,27 @@ typedef struct	s_flag
 }				t_flag;
 
 int			ft_printf(const char *fmt, ...);
+
+size_t		ft_strlen(const char *s);
+void		ft_div(long long nbr, int len, char *base);
+
+void		ft_putnbr_base_int(int nbr, char *base);
+void		ft_putnbr_base_uint(unsigned int nbr, char *base);
+void		ft_putnbr_base_ulong(unsigned long nbr, char *base);
+
+void		ft_print_char(int ch);
+void		ft_print_str(char *str);
+void		ft_print_address(unsigned long nbr);
+
 void		ft_init(t_flag *t);
+
 int			ft_parse(const char *fmt, t_flag *flag, va_list ap);
+int			ft_parse_width_precision(const char **fmt, va_list ap);
+
 int			ft_isspace(char ch);
 static int	check_over_range(unsigned long long num, int sign);
 int			ft_atoi(const char **nptr);
+
 int			ft_isdigit(int c);
-int			ft_parse_width_precision(const char **fmt, va_list ap);
 
 #endif
