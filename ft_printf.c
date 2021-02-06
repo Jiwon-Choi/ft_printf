@@ -6,7 +6,7 @@
 /*   By: jiwchoi <jiwchoi@student.42seoul.k>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/06 18:15:50 by jiwchoi           #+#    #+#             */
-/*   Updated: 2021/02/06 18:43:27 by jiwchoi          ###   ########.fr       */
+/*   Updated: 2021/02/06 18:54:02 by jiwchoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,8 @@ int		ft_parse(const char *fmt, t_flag *flag, va_list ap)
 	{
 		if (*fmt == '*')
 			flag->width = va_arg(ap, int);
-		flag->width = ft_atoi(fmt);
+		else
+			flag->width = ft_atoi(fmt);
 	}
 	// atoi 이후 포인터 이동 필요
 	/*
@@ -44,7 +45,8 @@ int		ft_parse(const char *fmt, t_flag *flag, va_list ap)
 		{
 			if (*fmt == '*')
 				flag->precision = va(ap, int);
-			flag->precision = ft_atoi(fmt);
+			else
+				flag->precision = ft_atoi(fmt);
 		}
 	}*/
 	return (0);
