@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jiwchoi <jiwchoi@student.42seoul.k>        +#+  +:+       +#+        */
+/*   By: jiwchoi <jiwchoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/02/06 19:01:11 by jiwchoi           #+#    #+#             */
-/*   Updated: 2021/02/06 20:19:21 by jiwchoi          ###   ########.fr       */
+/*   Created: 2020/12/21 15:36:34 by jiwchoi           #+#    #+#             */
+/*   Updated: 2020/12/28 15:53:47 by jiwchoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "libft.h"
 #include <limits.h>
 
 int				ft_isspace(char ch)
@@ -39,7 +39,7 @@ static int		check_over_range(unsigned long long num, int sign)
 	return (num * sign);
 }
 
-int				ft_atoi(const char **nptr)
+int				ft_atoi(const char *nptr)
 {
 	int					i;
 	int					sign;
@@ -48,18 +48,18 @@ int				ft_atoi(const char **nptr)
 	i = 0;
 	sign = 1;
 	num = 0;
-	while (ft_isspace(**nptr))
-		*nptr += 1;
-	if (**nptr == '-' || **nptr == '+')
+	while (ft_isspace(nptr[i]))
+		i++;
+	if (nptr[i] == '-' || nptr[i] == '+')
 	{
-		if (**nptr == '-')
+		if (nptr[i] == '-')
 			sign *= -1;
 		i++;
 	}
-	while (**nptr >= '0' && **nptr <= '9')
+	while (nptr[i] >= '0' && nptr[i] <= '9')
 	{
 		num *= 10;
-		num += (*(*nptr)++ - '0');
+		num += (nptr[i++] - '0');
 	}
 	return (check_over_range(num, sign));
 }

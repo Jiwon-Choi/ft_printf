@@ -6,7 +6,7 @@
 /*   By: jiwchoi <jiwchoi@student.42seoul.k>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/06 20:37:53 by jiwchoi           #+#    #+#             */
-/*   Updated: 2021/02/07 11:33:31 by jiwchoi          ###   ########.fr       */
+/*   Updated: 2021/02/07 16:27:30 by jiwchoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	ft_parse_width(const char **fmt, va_list ap, t_flag *flag)
 			*fmt += 1;
 		}
 		else
-			tmp = ft_atoi(fmt);
+			tmp = ft_atoi_printf(fmt);
 	}
 	flag->width = tmp;
 }
@@ -56,14 +56,31 @@ void	ft_parse_precision(const char **fmt, va_list ap, t_flag *flag)
 			*fmt += 1;
 		}
 		else
-			flag->precision = ft_atoi(fmt);
+			flag->precision = ft_atoi_printf(fmt);
 	}
 }
 
+#include "./libft/libft.h"
+#include <stdio.h>
 void	ft_parse(const char **fmt, t_flag *flag, va_list ap)
 {
 	ft_parse_zero_minus(fmt, ap, flag);
 	ft_parse_width(fmt, ap, flag);
 	if (**fmt == '.' && (*fmt)++)
 		ft_parse_precision(fmt, ap, flag);
+	//ft_load_data(fmt, ap);
+	if (**fmt == 'd')
+	{
+		char *result = ft_itoa(va_arg(ap, int));
+		int len = flag->precision - ft_strlen(result);
+		char *pre;
+		if (len)
+		{
+			pre = malloc(len + 1);
+			ft_memset(pre, '0', len);
+			pre[len] = 0;
+		}
+		result = ft_strjoin(pre, result);
+		printf("\n-------------%s\n", result);
+	}
 }

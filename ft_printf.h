@@ -6,7 +6,7 @@
 /*   By: jiwchoi <jiwchoi@student.42seoul.k>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/06 18:59:56 by jiwchoi           #+#    #+#             */
-/*   Updated: 2021/02/07 11:32:12 by jiwchoi          ###   ########.fr       */
+/*   Updated: 2021/02/07 16:14:38 by jiwchoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,10 @@ void		ft_parse_precision(const char **fmt, va_list ap, t_flag *flag);
 
 int			ft_isspace(char ch);
 static int	check_over_range(unsigned long long num, int sign);
-int			ft_atoi(const char **nptr);
+int			ft_atoi_printf(const char **nptr);
 
 int			ft_isdigit(int c);
 
+static int		get_len(long long n);
+char			*ft_itoa(int n);
 #endif

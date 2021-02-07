@@ -1,23 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   ft_lstmap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jiwchoi <jiwchoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/12/22 13:00:10 by jiwchoi           #+#    #+#             */
-/*   Updated: 2021/01/29 17:36:21 by jiwchoi          ###   ########.fr       */
+/*   Created: 2020/12/27 20:43:38 by jiwchoi           #+#    #+#             */
+/*   Updated: 2020/12/27 21:04:11 by jiwchoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "libft.h"
 
-size_t		ft_strlen(const char *s)
+t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
 {
-	size_t		i;
+	t_list	*p;
+	t_list	*new;
+	t_list	*head;
 
-	i = 0;
-	while (s[i])
-		i++;
-	return (i);
+	if (!lst || !f || !del)
+		return (0);
+	p = lst;
+	head = 0;
+	while (p)
+	{
+		if (!(new = ft_lstnew(f(p->content))))
+		{
+			ft_lstclear(&head, del);
+			return (0);
+		}
+		ft_lstadd_back(&head, new);
+		p = p->next;
+	}
+	return (head);
 }

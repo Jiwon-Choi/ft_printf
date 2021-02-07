@@ -6,7 +6,7 @@
 /*   By: jiwchoi <jiwchoi@student.42seoul.k>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/06 18:15:50 by jiwchoi           #+#    #+#             */
-/*   Updated: 2021/02/07 11:32:44 by jiwchoi          ###   ########.fr       */
+/*   Updated: 2021/02/07 16:28:32 by jiwchoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,15 +40,15 @@ int		ft_printf(const char *fmt, ...)
 		ft_parse(&fmt, &flag, ap);
 	}
 
-	printf("%d\n", flag.minus);
-	printf("%d\n", flag.zero);
-	printf("%d\n", flag.width);
-	printf("%d\n", flag.precision);
+	//printf("%d\n", flag.minus);
+	//printf("%d\n", flag.zero);
+	//printf("%d\n", flag.width);
+	//printf("%d\n", flag.precision);
 	return (0);
 }
 
 int		main(void)
 {
-	ft_printf("Today is %*.*d.\n", -11, 4, 6);
+	ft_printf("Today is %*.*d.\n", -11, 5, -42);
 	return (0);
 }
