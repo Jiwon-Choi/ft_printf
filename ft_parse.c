@@ -6,7 +6,7 @@
 /*   By: jiwchoi <jiwchoi@student.42seoul.k>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/06 20:37:53 by jiwchoi           #+#    #+#             */
-/*   Updated: 2021/02/07 16:27:30 by jiwchoi          ###   ########.fr       */
+/*   Updated: 2021/02/07 17:39:35 by jiwchoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,18 +69,27 @@ void	ft_parse(const char **fmt, t_flag *flag, va_list ap)
 	if (**fmt == '.' && (*fmt)++)
 		ft_parse_precision(fmt, ap, flag);
 	//ft_load_data(fmt, ap);
-	if (**fmt == 'd')
+	if (*(*fmt)++ == 'd')
 	{
-		char *result = ft_itoa(va_arg(ap, int));
+		int num = va_arg(ap, int);
+		char *result = ft_itoa(num);
 		int len = flag->precision - ft_strlen(result);
 		char *pre;
-		if (len)
+
+		if (len > 0)
 		{
-			pre = malloc(len + 1);
-			ft_memset(pre, '0', len);
-			pre[len] = 0;
+			pre = malloc(flag->precision + 1);
+			ft_memset(pre, '0', flag->precision);
+			if (num < 0)
+			{
+				pre[0] = '-';
+				ft_strlcpy(&pre[len + 1], result + 1, ft_strlen(result) + 1);
+			}
+			else
+				ft_strlcpy(&pre[len], result, ft_strlen(result) + 1);
 		}
-		result = ft_strjoin(pre, result);
-		printf("\n-------------%s\n", result);
+		else
+			pre = result;
+		ft_putstr_fd(pre, 1);
 	}
 }
