@@ -6,7 +6,7 @@
 /*   By: jiwchoi <jiwchoi@student.42seoul.k>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/06 20:37:53 by jiwchoi           #+#    #+#             */
-/*   Updated: 2021/02/07 17:39:35 by jiwchoi          ###   ########.fr       */
+/*   Updated: 2021/02/07 17:57:41 by jiwchoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,6 @@ void	ft_parse_precision(const char **fmt, va_list ap, t_flag *flag)
 	}
 }
 
-#include "./libft/libft.h"
-#include <stdio.h>
 void	ft_parse(const char **fmt, t_flag *flag, va_list ap)
 {
 	ft_parse_zero_minus(fmt, ap, flag);
