@@ -6,7 +6,7 @@
 /*   By: jiwchoi <jiwchoi@student.42seoul.k>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/06 18:15:50 by jiwchoi           #+#    #+#             */
-/*   Updated: 2021/02/08 18:48:57 by jiwchoi          ###   ########.fr       */
+/*   Updated: 2021/02/08 21:45:45 by jiwchoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,9 @@ int		ft_printf(const char *fmt, ...)
 
 int		main(void)
 {
-	ft_printf("Hello [%-0*.*u], [%x], [%X].\n", -10, -3, 42, 42, 42);
+	int		num = 42;
+	ft_printf("Hello [%-0*.*u], [%-05.3x], [%5.1X], [%p].\n", -10, -3, 42, 42, 42, &num);
+	ft_printf("[%10.3s]\n", "abcdef");
+	ft_printf("[%-2c] [%5%]\n", 'a');
 	return (0);
 }

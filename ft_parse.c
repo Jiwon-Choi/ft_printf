@@ -6,7 +6,7 @@
 /*   By: jiwchoi <jiwchoi@student.42seoul.k>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/06 20:37:53 by jiwchoi           #+#    #+#             */
-/*   Updated: 2021/02/08 20:30:03 by jiwchoi          ###   ########.fr       */
+/*   Updated: 2021/02/08 21:26:13 by jiwchoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,5 +70,11 @@ void	ft_parse(const char **fmt, t_flag *flag, va_list ap)
 		ft_parse_precision(fmt, ap, flag);
 	if (ft_strchr("diuxX", **fmt))
 		ft_type_num(ap, flag, **fmt);
+	else if (ft_strchr("c%", **fmt))
+		ft_type_char(ap, flag, **fmt);
+	else if (**fmt == 'p')
+		ft_type_address(ap, flag);
+	else if (**fmt == 's')
+		ft_type_str(ap, flag);
 	(*fmt)++;
 }

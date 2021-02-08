@@ -6,7 +6,7 @@
 /*   By: jiwchoi <jiwchoi@student.42seoul.k>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/06 19:01:11 by jiwchoi           #+#    #+#             */
-/*   Updated: 2021/02/08 18:39:03 by jiwchoi          ###   ########.fr       */
+/*   Updated: 2021/02/08 21:48:13 by jiwchoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int				ft_atoi_double(const char **nptr)
 	return (check_over_range(num, sign));
 }
 
-int		get_len_base(long long n, int base)
+int				get_len_base(long long n, int base)
 {
 	int		len;
 
@@ -62,7 +62,30 @@ int		get_len_base(long long n, int base)
 	return (len);
 }
 
-char		*ft_utoa_base(unsigned int n, char *base)
+char			*ft_uitoa_base(unsigned int n, char *base)
+{
+	long long	num;
+	char		*str;
+	long long	base_len;
+	int			len;
+
+	num = n;
+	base_len = ft_strlen(base);
+	len = get_len_base(num, base_len);
+	if (!(str = (char *)malloc(len + 1)))
+		return (0);
+	if (num == 0)
+		str[0] = '0';
+	str[len--] = 0;
+	while (num > 0)
+	{
+		str[len--] = base[num % base_len];
+		num /= base_len;
+	}
+	return (str);
+}
+
+char			*ft_ultoa_base(unsigned long n, char *base)
 {
 	long long	num;
 	char		*str;
