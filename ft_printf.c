@@ -6,20 +6,19 @@
 /*   By: jiwchoi <jiwchoi@student.42seoul.k>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/06 18:15:50 by jiwchoi           #+#    #+#             */
-/*   Updated: 2021/02/07 17:47:58 by jiwchoi          ###   ########.fr       */
+/*   Updated: 2021/02/08 18:48:57 by jiwchoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-#include <stdio.h>
 
 void	ft_init(t_flag *t)
 {
-	t->minus = 0;
+	t->left = 0;
 	t->zero = 0;
 	t->width = 0;
 	t->precision = 0;
-	t->type = 0;
+	t->padding = ' ';
 }
 
 int		ft_printf(const char *fmt, ...)
@@ -38,17 +37,13 @@ int		ft_printf(const char *fmt, ...)
 		}
 		fmt++;
 		ft_parse(&fmt, &flag, ap);
+		ft_init(&flag);
 	}
-
-	//printf("%d\n", flag.minus);
-	//printf("%d\n", flag.zero);
-	//printf("%d\n", flag.width);
-	//printf("%d\n", flag.precision);
 	return (0);
 }
 
 int		main(void)
 {
-	ft_printf("Today is %*.*d.\n", -11, 10, -42);
+	ft_printf("Hello [%-0*.*u], [%x], [%X].\n", -10, -3, 42, 42, 42);
 	return (0);
 }

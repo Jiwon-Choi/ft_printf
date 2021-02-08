@@ -6,7 +6,7 @@
 /*   By: jiwchoi <jiwchoi@student.42seoul.k>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/06 18:59:56 by jiwchoi           #+#    #+#             */
-/*   Updated: 2021/02/07 17:37:50 by jiwchoi          ###   ########.fr       */
+/*   Updated: 2021/02/08 18:39:45 by jiwchoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,39 +20,33 @@
 
 typedef struct	s_flag
 {
-	int		minus;
+	int		left;
 	int		zero;
 	int		width;
 	int		precision;
-	char	type;
+	char	padding;
 }				t_flag;
 
-int			ft_printf(const char *fmt, ...);
+// ft_join.c
+char	*ft_join_precision(va_list ap, t_flag *flag, char *src);
+char	*ft_join_width(va_list ap, t_flag *flag, char *src);
 
-size_t		ft_strlen(const char *s);
-void		ft_div(long long nbr, int len, char *base);
-
-void		ft_putnbr_base_int(int nbr, char *base);
-void		ft_putnbr_base_uint(unsigned int nbr, char *base);
-void		ft_putnbr_base_ulong(unsigned long nbr, char *base);
-
-void		ft_print_char(int ch);
-void		ft_print_str(char *str);
-void		ft_print_address(unsigned long nbr);
-
-void		ft_init(t_flag *t);
-
+// ft_parse.c
 void		ft_parse(const char **fmt, t_flag *flag, va_list ap);
 void		ft_parse_zero_minus(const char **fmt, va_list ap, t_flag *flag);
 void		ft_parse_width(const char **fmt, va_list ap, t_flag *flag);
 void		ft_parse_precision(const char **fmt, va_list ap, t_flag *flag);
 
-int			ft_isspace(char ch);
-static int	check_over_range(unsigned long long num, int sign);
-int			ft_atoi_printf(const char **nptr);
+// ft_printf.c
+int			ft_printf(const char *fmt, ...);
+void		ft_init(t_flag *t);
 
-int			ft_isdigit(int c);
+// ft_to.c
+int			ft_atoi_double(const char **nptr);
+int			get_len_base(long long n, int base);
+char		*ft_utoa_base(unsigned int n, char *base);
 
-static int		get_len(long long n);
-char			*ft_itoa(int n);
+// ft_type.c
+void	ft_type_num(va_list ap, t_flag *flag, char type);
+
 #endif
