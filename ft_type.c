@@ -6,7 +6,7 @@
 /*   By: jiwchoi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/08 11:20:56 by jiwchoi           #+#    #+#             */
-/*   Updated: 2021/02/09 17:07:00 by jiwchoi          ###   ########.fr       */
+/*   Updated: 2021/02/09 18:14:40 by jiwchoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int		ft_type_num(va_list ap, t_flag *flag, char type)
 	int		num;
 
 	src = 0;
-	if (flag->dot && flag->precision > 0)
+	if (flag->dot && flag->precision >= 0)
 		flag->padding = ' ';
 	num = va_arg(ap, int);
 	if (flag->dot && flag->precision == 0 && num == 0)
