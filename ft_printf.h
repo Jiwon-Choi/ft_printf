@@ -6,7 +6,7 @@
 /*   By: jiwchoi <jiwchoi@student.42seoul.k>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/06 18:59:56 by jiwchoi           #+#    #+#             */
-/*   Updated: 2021/02/09 11:25:53 by jiwchoi          ###   ########.fr       */
+/*   Updated: 2021/02/09 11:27:39 by jiwchoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ char	*ft_join_width(t_flag *flag, char *src);
 
 // ft_parse.c
 int		ft_parse(const char **fmt, t_flag *flag, va_list ap);
-void	ft_parse_zero_minus(const char **fmt, va_list ap, t_flag *flag);
+void	ft_parse_zero_minus(const char **fmt, t_flag *flag);
 void	ft_parse_width(const char **fmt, va_list ap, t_flag *flag);
 void	ft_parse_precision(const char **fmt, va_list ap, t_flag *flag);
 

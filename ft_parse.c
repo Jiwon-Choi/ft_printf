@@ -6,13 +6,13 @@
 /*   By: jiwchoi <jiwchoi@student.42seoul.k>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/06 20:37:53 by jiwchoi           #+#    #+#             */
-/*   Updated: 2021/02/09 11:05:59 by jiwchoi          ###   ########.fr       */
+/*   Updated: 2021/02/09 11:27:24 by jiwchoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void	ft_parse_zero_minus(const char **fmt, va_list ap, t_flag *flag)
+void	ft_parse_zero_minus(const char **fmt, t_flag *flag)
 {
 	while (**fmt == '-' || **fmt == '0')
 	{
@@ -64,7 +64,7 @@ void	ft_parse_precision(const char **fmt, va_list ap, t_flag *flag)
 
 int		ft_parse(const char **fmt, t_flag *flag, va_list ap)
 {
-	ft_parse_zero_minus(fmt, ap, flag);
+	ft_parse_zero_minus(fmt, flag);
 	ft_parse_width(fmt, ap, flag);
 	if (**fmt == '.' && (*fmt)++)
 		ft_parse_precision(fmt, ap, flag);
