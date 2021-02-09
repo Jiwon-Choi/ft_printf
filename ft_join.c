@@ -6,7 +6,7 @@
 /*   By: jiwchoi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/08 12:07:28 by jiwchoi           #+#    #+#             */
-/*   Updated: 2021/02/09 15:06:58 by jiwchoi          ###   ########.fr       */
+/*   Updated: 2021/02/09 20:40:49 by jiwchoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,11 @@ char	*ft_join_width(t_flag *flag, char *src)
 		tmp = malloc(len + 1);
 		ft_memset(tmp, flag->padding, len);
 		tmp[len] = 0;
+		if (src[0] == '-' && tmp[0] == '0')
+		{
+			tmp[0] = '-';
+			src[0] = '0';
+		}
 		if (flag->left)
 			result = ft_strjoin(src, tmp);
 		else
