@@ -6,7 +6,7 @@
 /*   By: jiwchoi <jiwchoi@student.42seoul.k>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/06 20:37:53 by jiwchoi           #+#    #+#             */
-/*   Updated: 2021/02/08 21:26:13 by jiwchoi          ###   ########.fr       */
+/*   Updated: 2021/02/09 11:05:59 by jiwchoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,19 +62,19 @@ void	ft_parse_precision(const char **fmt, va_list ap, t_flag *flag)
 	}
 }
 
-void	ft_parse(const char **fmt, t_flag *flag, va_list ap)
+int		ft_parse(const char **fmt, t_flag *flag, va_list ap)
 {
 	ft_parse_zero_minus(fmt, ap, flag);
 	ft_parse_width(fmt, ap, flag);
 	if (**fmt == '.' && (*fmt)++)
 		ft_parse_precision(fmt, ap, flag);
 	if (ft_strchr("diuxX", **fmt))
-		ft_type_num(ap, flag, **fmt);
+		return (ft_type_num(ap, flag, **fmt));
 	else if (ft_strchr("c%", **fmt))
-		ft_type_char(ap, flag, **fmt);
+		return (ft_type_char(ap, flag, **fmt));
 	else if (**fmt == 'p')
-		ft_type_address(ap, flag);
+		return (ft_type_address(ap, flag));
 	else if (**fmt == 's')
-		ft_type_str(ap, flag);
-	(*fmt)++;
+		return (ft_type_str(ap, flag));
+	return (0);
 }
