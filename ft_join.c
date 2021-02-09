@@ -6,13 +6,13 @@
 /*   By: jiwchoi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/08 12:07:28 by jiwchoi           #+#    #+#             */
-/*   Updated: 2021/02/09 10:52:53 by jiwchoi          ###   ########.fr       */
+/*   Updated: 2021/02/09 11:24:49 by jiwchoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-char	*ft_join_precision(va_list ap, t_flag *flag, char *src)
+char	*ft_join_precision(t_flag *flag, char *src)
 {
 	int		len;
 	char	*tmp;
@@ -37,7 +37,7 @@ char	*ft_join_precision(va_list ap, t_flag *flag, char *src)
 	return (result);
 }
 
-char	*ft_join_width(va_list ap, t_flag *flag, char *src)
+char	*ft_join_width(t_flag *flag, char *src)
 {
 	int		len;
 	char	*tmp;

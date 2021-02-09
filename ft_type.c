@@ -6,7 +6,7 @@
 /*   By: jiwchoi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/08 11:20:56 by jiwchoi           #+#    #+#             */
-/*   Updated: 2021/02/09 11:09:25 by jiwchoi          ###   ########.fr       */
+/*   Updated: 2021/02/09 11:25:32 by jiwchoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,11 @@ int		ft_type_num(va_list ap, t_flag *flag, char type)
 		src = ft_uitoa_base(va_arg(ap, unsigned int), "0123456789abcdef");
 	else if (type == 'X')
 		src = ft_uitoa_base(va_arg(ap, unsigned int), "0123456789ABCDEF");
-	result = ft_join_precision(ap, flag, src);
+	result = ft_join_precision(flag, src);
 	free(src);
 	src = ft_strdup(result);
 	free(result);
-	result = ft_join_width(ap, flag, src);
+	result = ft_join_width(flag, src);
 	free(src);
 	ft_putstr_fd(result, 1);
 	cnt = ft_strlen(result);
@@ -49,7 +49,7 @@ int		ft_type_address(va_list ap, t_flag *flag)
 	free(src);
 	src = ft_strdup(result);
 	free(result);
-	result = ft_join_width(ap, flag, src);
+	result = ft_join_width(flag, src);
 	free(src);
 	ft_putstr_fd(result, 1);
 	cnt = ft_strlen(result);
@@ -69,7 +69,7 @@ int		ft_type_char(va_list ap, t_flag *flag, char type)
 		src[0] = va_arg(ap, int);
 	else if (type == '%')
 		src[0] = '%';
-	result = ft_join_width(ap, flag, src);
+	result = ft_join_width(flag, src);
 	free(src);
 	ft_putstr_fd(result, 1);
 	cnt = ft_strlen(result);
@@ -84,7 +84,7 @@ int		ft_type_str(va_list ap, t_flag *flag)
 	int		cnt;
 
 	src = ft_substr(va_arg(ap, char *), 0, flag->precision);
-	result = ft_join_width(ap, flag, src);
+	result = ft_join_width(flag, src);
 	free(src);
 	ft_putstr_fd(result, 1);
 	cnt = ft_strlen(result);

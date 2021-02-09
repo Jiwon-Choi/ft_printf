@@ -6,7 +6,7 @@
 /*   By: jiwchoi <jiwchoi@student.42seoul.k>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/06 18:59:56 by jiwchoi           #+#    #+#             */
-/*   Updated: 2021/02/09 11:23:09 by jiwchoi          ###   ########.fr       */
+/*   Updated: 2021/02/09 11:25:53 by jiwchoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ typedef struct	s_flag
 }				t_flag;
 
 // ft_join.c
-char	*ft_join_precision(va_list ap, t_flag *flag, char *src);
-char	*ft_join_width(va_list ap, t_flag *flag, char *src);
+char	*ft_join_precision(t_flag *flag, char *src);
+char	*ft_join_width(t_flag *flag, char *src);
 
 // ft_parse.c
 int		ft_parse(const char **fmt, t_flag *flag, va_list ap);
