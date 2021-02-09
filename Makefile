@@ -6,7 +6,7 @@
 #    By: jiwchoi <jiwchoi@student.42seoul.kr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/30 21:38:42 by jiwchoi           #+#    #+#              #
-#    Updated: 2021/02/09 11:19:41 by jiwchoi          ###   ########.fr        #
+#    Updated: 2021/02/09 11:36:03 by jiwchoi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,6 +16,7 @@ CC		= gcc
 CFLAGS	= -Wall -Wextra -Werror
 AR		= ar rcs
 RM		= rm -f
+LIBFT	= ./libft
 
 SRCS	= ft_join.c \
 		  ft_parse.c \
@@ -32,7 +33,7 @@ BOBJS	= $(BSRCS:.c=.o)
 	$(CC) $(CFLAGS) -c $<
 
 $(NAME) : $(OBJS)
-	make -C ./libft
+	make -C $(LIBFT)
 	$(AR) $@ $^
 
 bonus : $(BOBJS)
@@ -41,6 +42,7 @@ bonus : $(BOBJS)
 all : $(NAME)
 
 clean :
+	make -C $(LIBFT) clean
 	$(RM) $(OBJS) $(BOBJS)
 
 fclean : clean
