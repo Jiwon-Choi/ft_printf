@@ -6,7 +6,7 @@
 #    By: jiwchoi <jiwchoi@student.42seoul.kr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/30 21:38:42 by jiwchoi           #+#    #+#              #
-#    Updated: 2021/02/09 12:27:05 by jiwchoi          ###   ########.fr        #
+#    Updated: 2021/02/09 14:36:14 by jiwchoi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,6 +47,7 @@ clean :
 	$(RM) $(OBJS) $(BOBJS)
 
 fclean : clean
+	make -C $(LIBFT) fclean
 	$(RM) $(NAME)
 
 re : clean all
