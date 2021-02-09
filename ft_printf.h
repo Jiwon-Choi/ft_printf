@@ -6,7 +6,7 @@
 /*   By: jiwchoi <jiwchoi@student.42seoul.k>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/06 18:59:56 by jiwchoi           #+#    #+#             */
-/*   Updated: 2021/02/09 12:52:49 by jiwchoi          ###   ########.fr       */
+/*   Updated: 2021/02/09 13:30:56 by jiwchoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ typedef struct	s_flag
 	int		left;
 	int		zero;
 	int		width;
+	int		dot;
 	int		precision;
 	char	padding;
 }				t_flag;

@@ -6,7 +6,7 @@
 /*   By: jiwchoi <jiwchoi@student.42seoul.k>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/06 18:15:50 by jiwchoi           #+#    #+#             */
-/*   Updated: 2021/02/09 11:20:27 by jiwchoi          ###   ########.fr       */
+/*   Updated: 2021/02/09 13:31:06 by jiwchoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ void	ft_init(t_flag *t)
 	t->left = 0;
 	t->zero = 0;
 	t->width = 0;
+	t->dot = 0;
 	t->precision = 0;
 	t->padding = ' ';
 }
