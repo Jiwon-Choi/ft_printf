@@ -6,7 +6,7 @@
 /*   By: jiwchoi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/08 12:07:28 by jiwchoi           #+#    #+#             */
-/*   Updated: 2021/02/09 11:24:49 by jiwchoi          ###   ########.fr       */
+/*   Updated: 2021/02/09 15:06:58 by jiwchoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ char	*ft_join_precision(t_flag *flag, char *src)
 	char	*result;
 
 	len = flag->precision - ft_strlen(src);
+	if (src[0] == '-')
+		len += 1;
 	if (len > 0)
 	{
 		tmp = malloc(len + 1);
