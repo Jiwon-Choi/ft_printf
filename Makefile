@@ -6,7 +6,7 @@
 #    By: jiwchoi <jiwchoi@student.42seoul.kr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/30 21:38:42 by jiwchoi           #+#    #+#              #
-#    Updated: 2021/02/09 12:02:35 by jiwchoi          ###   ########.fr        #
+#    Updated: 2021/02/09 12:27:05 by jiwchoi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,7 +34,7 @@ BOBJS	= $(BSRCS:.c=.o)
 
 $(NAME) : $(OBJS)
 	make -C $(LIBFT)
-	mv $(LIBFT)/libft.a $(NAME)
+	cp $(LIBFT)/libft.a $(NAME)
 	$(AR) $@ $^
 
 bonus : $(BOBJS)
