@@ -6,7 +6,7 @@
 /*   By: jiwchoi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/08 11:20:56 by jiwchoi           #+#    #+#             */
-/*   Updated: 2021/02/09 16:08:19 by jiwchoi          ###   ########.fr       */
+/*   Updated: 2021/02/09 16:58:53 by jiwchoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,18 @@ int		ft_type_num(va_list ap, t_flag *flag, char type)
 	char	*src;
 	char	*result;
 	int		cnt;
+	int		num;
 
 	src = 0;
+	if (flag->dot && flag->precision > 0)
+		flag->padding = ' ';
 	if (type == 'd' || type == 'i')
 	{
-		if (flag->dot)
-			flag->padding = ' ';
-		src = ft_itoa(va_arg(ap, int));
+		num = va_arg(ap, int);
+		if (flag->dot && flag->precision == 0 && num == 0)
+			src = ft_strdup("");
+		else
+			src = ft_itoa(num);
 	}
 	else if (type == 'u')
 		src = ft_uitoa_base(va_arg(ap, unsigned int), "0123456789");
