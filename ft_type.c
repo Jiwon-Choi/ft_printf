@@ -6,7 +6,7 @@
 /*   By: jiwchoi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/08 11:20:56 by jiwchoi           #+#    #+#             */
-/*   Updated: 2021/02/09 11:25:32 by jiwchoi          ###   ########.fr       */
+/*   Updated: 2021/02/09 11:29:46 by jiwchoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ int		ft_type_num(va_list ap, t_flag *flag, char type)
 	char	*result;
 	int		cnt;
 
+	src = 0;
 	if (type == 'd' || type == 'i')
 		src = ft_itoa(va_arg(ap, int));
 	else if (type == 'u')
