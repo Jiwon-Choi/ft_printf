@@ -6,7 +6,7 @@
 /*   By: jiwchoi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/08 11:20:56 by jiwchoi           #+#    #+#             */
-/*   Updated: 2021/02/09 20:09:01 by jiwchoi          ###   ########.fr       */
+/*   Updated: 2021/02/10 11:40:18 by jiwchoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,11 +97,20 @@ int		ft_type_str(va_list ap, t_flag *flag)
 	char	*src;
 	char	*result;
 	int		cnt;
+	char	*tmp;
 
-	if (flag->dot && flag->precision >= 0)
-		src = ft_substr(va_arg(ap, char *), 0, flag->precision);
+	tmp = va_arg(ap, char *);
+	if (!tmp)
+		src = ft_strdup("(null)");
 	else
-		src = ft_strdup(va_arg(ap, char *));
+		src = ft_strdup(tmp);
+	if (flag->dot && flag->precision >= 0)
+	{
+		tmp = ft_substr(src, 0, flag->precision);
+		free(src);
+		src = ft_strdup(tmp);
+		free(tmp);
+	}
 	result = ft_join_width(flag, src);
 	free(src);
 	ft_putstr_fd(result, 1);
