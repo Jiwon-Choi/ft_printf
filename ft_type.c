@@ -6,7 +6,7 @@
 /*   By: jiwchoi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/08 11:20:56 by jiwchoi           #+#    #+#             */
-/*   Updated: 2021/02/10 12:57:29 by jiwchoi          ###   ########.fr       */
+/*   Updated: 2021/02/10 13:08:26 by jiwchoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ int		ft_type_char(va_list ap, t_flag *flag, char type)
 	cnt = ft_strlen(result);
 	if (is_null && cnt == flag->width)
 	{
-		result[cnt-1] = 0;
+		result[cnt - 1] = 0;
 		if (cnt == 0)
 			cnt++;
 	}
