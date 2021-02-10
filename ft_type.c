@@ -6,7 +6,7 @@
 /*   By: jiwchoi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/08 11:20:56 by jiwchoi           #+#    #+#             */
-/*   Updated: 2021/02/10 11:40:18 by jiwchoi          ###   ########.fr       */
+/*   Updated: 2021/02/10 12:57:29 by jiwchoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,17 +77,38 @@ int		ft_type_char(va_list ap, t_flag *flag, char type)
 	char	*src;
 	char	*result;
 	int		cnt;
+	int		is_null;
 
+	is_null = 0;
 	src = malloc(2);
 	src[1] = 0;
 	if (type == 'c')
 		src[0] = va_arg(ap, int);
 	else if (type == '%')
 		src[0] = '%';
+	if (!src[0])
+		is_null = 1;
 	result = ft_join_width(flag, src);
 	free(src);
-	ft_putstr_fd(result, 1);
 	cnt = ft_strlen(result);
+	if (is_null && cnt == flag->width)
+	{
+		result[cnt-1] = 0;
+		if (cnt == 0)
+			cnt++;
+	}
+	if (is_null && flag->left)
+	{
+		ft_putchar_fd('\0', 1);
+		ft_putstr_fd(result, 1);
+	}
+	else if (is_null)
+	{
+		ft_putstr_fd(result, 1);
+		ft_putchar_fd('\0', 1);
+	}
+	else
+		ft_putstr_fd(result, 1);
 	free(result);
 	return (cnt);
 }
