@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jiwchoi <jiwchoi@student.42seoul.k>        +#+  +:+       +#+        */
+/*   By: jiwchoi <jiwchoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/02/06 18:59:56 by jiwchoi           #+#    #+#             */
-/*   Updated: 2021/02/09 13:30:56 by jiwchoi          ###   ########.fr       */
+/*   Created: 2021/02/14 10:27:06 by jiwchoi           #+#    #+#             */
+/*   Updated: 2021/02/14 16:32:36 by jiwchoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,21 +28,22 @@ typedef struct	s_flag
 	char	padding;
 }				t_flag;
 
-char			*ft_join_precision(t_flag *flag, char *src);
-char			*ft_join_width(t_flag *flag, char *src);
-int				ft_parse(const char **fmt, t_flag *flag, va_list ap);
-void			ft_parse_zero_minus(const char **fmt, t_flag *flag);
-void			ft_parse_width(const char **fmt, va_list ap, t_flag *flag);
-void			ft_parse_precision(const char **fmt, va_list ap, t_flag *flag);
+void			ft_parse_flag(const char **fmt, t_flag *data);
+void			ft_parse_width(const char **fmt, va_list ap, t_flag *data);
+void			ft_parse_precision(const char **fmt, va_list ap, t_flag *data);
+int				ft_parse(const char **fmt, va_list ap, t_flag *data);
+void			ft_init(t_flag *data);
+void			ft_putchar_fd_iter(char ch, int fd, int len);
+int				ft_print_width(t_flag *data, char *src, int len);
 int				ft_printf(const char *fmt, ...);
-void			ft_init(t_flag *t);
 int				ft_atoi_double(const char **nptr);
-int				get_len_base(long long n, int base);
-char			*ft_uitoa_base(unsigned int n, char *base);
-char			*ft_ultoa_base(unsigned long n, char *base);
-int				ft_type_num(va_list ap, t_flag *flag, char type);
-int				ft_type_char(va_list ap, t_flag *flag, char type);
-int				ft_type_address(va_list ap, t_flag *flag);
+int				ft_get_len_base(long long n, int base);
+char			*ft_itoa_data(int n, t_flag *data);
+char			*ft_uitoa_base(unsigned int n, char *base, t_flag *data);
+char			*ft_ultoa_base(unsigned long n, char *base, t_flag *data);
+int				ft_type_num(va_list ap, t_flag *data, char type);
+int				ft_type_address(va_list ap, t_flag *data);
 int				ft_type_str(va_list ap, t_flag *flag);
+int				ft_type_char(va_list ap, t_flag *data, char type);
 
 #endif

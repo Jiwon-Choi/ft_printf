@@ -3,139 +3,107 @@
 /*                                                        :::      ::::::::   */
 /*   ft_type.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jiwchoi <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: jiwchoi <jiwchoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/02/08 11:20:56 by jiwchoi           #+#    #+#             */
-/*   Updated: 2021/02/10 13:08:26 by jiwchoi          ###   ########.fr       */
+/*   Created: 2021/02/14 12:19:58 by jiwchoi           #+#    #+#             */
+/*   Updated: 2021/02/14 17:20:18 by jiwchoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int		ft_type_num(va_list ap, t_flag *flag, char type)
+int		ft_type_num(va_list ap, t_flag *data, char type)
 {
 	char	*src;
-	char	*result;
 	int		cnt;
 	int		num;
 
 	src = 0;
-	if (flag->dot && flag->precision >= 0)
-		flag->padding = ' ';
+	if (data->dot && data->precision >= 0)
+		data->padding = ' ';
 	num = va_arg(ap, int);
-	if (flag->dot && flag->precision == 0 && num == 0)
+	if (data->dot && data->precision == 0 && num == 0)
 		src = ft_strdup("");
 	else
 	{
 		if (type == 'd' || type == 'i')
-			src = ft_itoa(num);
+			src = ft_itoa_data(num, data);
 		else if (type == 'u')
-			src = ft_uitoa_base(num, "0123456789");
+			src = ft_uitoa_base(num, "0123456789", data);
 		else if (type == 'x')
-			src = ft_uitoa_base(num, "0123456789abcdef");
+			src = ft_uitoa_base(num, "0123456789abcdef", data);
 		else if (type == 'X')
-			src = ft_uitoa_base(num, "0123456789ABCDEF");
+			src = ft_uitoa_base(num, "0123456789ABCDEF", data);
 	}
-	result = ft_join_precision(flag, src);
+	cnt = ft_print_width(data, src, data->width - ft_strlen(src));
 	free(src);
-	src = ft_strdup(result);
-	free(result);
-	result = ft_join_width(flag, src);
-	free(src);
-	ft_putstr_fd(result, 1);
-	cnt = ft_strlen(result);
-	free(result);
 	return (cnt);
 }
 
-int		ft_type_address(va_list ap, t_flag *flag)
+int		ft_type_address(va_list ap, t_flag *data)
 {
+	char			*tmp;
 	char			*src;
-	char			*result;
 	int				cnt;
 	unsigned long	num;
 
 	num = va_arg(ap, unsigned long);
-	if (flag->dot && flag->precision == 0 && num == 0)
-		src = ft_strdup("");
+	if (data->dot && data->precision == 0 && num == 0)
+		tmp = ft_strdup("");
 	else
-		src = ft_ultoa_base(num, "0123456789abcdef");
-	result = ft_strjoin("0x", src);
+		tmp = ft_ultoa_base(num, "0123456789abcdef", data);
+	src = ft_strjoin("0x", tmp);
+	cnt = ft_print_width(data, src, data->width - ft_strlen(src));
+	free(tmp);
 	free(src);
-	src = ft_strdup(result);
-	free(result);
-	result = ft_join_width(flag, src);
-	free(src);
-	ft_putstr_fd(result, 1);
-	cnt = ft_strlen(result);
-	free(result);
 	return (cnt);
 }
 
-int		ft_type_char(va_list ap, t_flag *flag, char type)
+int		ft_type_str(va_list ap, t_flag *data)
 {
-	char	*src;
-	char	*result;
-	int		cnt;
-	int		is_null;
-
-	is_null = 0;
-	src = malloc(2);
-	src[1] = 0;
-	if (type == 'c')
-		src[0] = va_arg(ap, int);
-	else if (type == '%')
-		src[0] = '%';
-	if (!src[0])
-		is_null = 1;
-	result = ft_join_width(flag, src);
-	free(src);
-	cnt = ft_strlen(result);
-	if (is_null && cnt == flag->width)
-	{
-		result[cnt - 1] = 0;
-		if (cnt == 0)
-			cnt++;
-	}
-	if (is_null && flag->left)
-	{
-		ft_putchar_fd('\0', 1);
-		ft_putstr_fd(result, 1);
-	}
-	else if (is_null)
-	{
-		ft_putstr_fd(result, 1);
-		ft_putchar_fd('\0', 1);
-	}
-	else
-		ft_putstr_fd(result, 1);
-	free(result);
-	return (cnt);
-}
-
-int		ft_type_str(va_list ap, t_flag *flag)
-{
-	char	*src;
-	char	*result;
-	int		cnt;
 	char	*tmp;
+	char	*src;
+	int		cnt;
 
 	tmp = va_arg(ap, char *);
 	if (!tmp)
-		src = ft_strdup("(null)");
+		tmp = ft_strdup("(null)");
+	else
+		tmp = ft_strdup(tmp);
+	if (data->dot && data->precision >= 0)
+		src = ft_substr(tmp, 0, data->precision);
 	else
 		src = ft_strdup(tmp);
-	if (flag->dot && flag->precision >= 0)
-	{
-		tmp = ft_substr(src, 0, flag->precision);
-		free(src);
-		src = ft_strdup(tmp);
-		free(tmp);
-	}
-	result = ft_join_width(flag, src);
+	cnt = ft_print_width(data, src, data->width - ft_strlen(src));
+	free(tmp);
 	free(src);
-	ft_putstr_fd(result, 1);
-	cnt = ft_strlen(result);
-	free(result);
+	return (cnt);
+}
+
+int		ft_type_char(va_list ap, t_flag *data, char type)
+{
+	char	ch;
+	int		cnt;
+
+	ch = '%';
+	if (type == 'c')
+		ch = va_arg(ap, int);
+	cnt = 1;
+	if (data->width > 1)
+	{
+		cnt += data->width - 1;
+		if (data->left)
+		{
+			ft_putchar_fd(ch, 1);
+			ft_putchar_fd_iter(data->padding, 1, data->width - 1);
+		}
+		else
+		{
+			ft_putchar_fd_iter(data->padding, 1, data->width - 1);
+			ft_putchar_fd(ch, 1);
+		}
+	}
+	else
+		ft_putchar_fd(ch, 1);
 	return (cnt);
 }

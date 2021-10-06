@@ -1,32 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoi.c                                          :+:      :+:    :+:   */
+/*   ft_to.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jiwchoi <jiwchoi@student.42seoul.k>        +#+  +:+       +#+        */
+/*   By: jiwchoi <jiwchoi@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/02/06 19:01:11 by jiwchoi           #+#    #+#             */
-/*   Updated: 2021/02/08 21:48:13 by jiwchoi          ###   ########.fr       */
+/*   Created: 2021/02/14 10:53:36 by jiwchoi           #+#    #+#             */
+/*   Updated: 2021/02/17 01:27:52 by jiwchoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-#include <limits.h>
 
-static int		check_over_range(unsigned long long num, int sign)
+int		ft_atoi_double(const char **nptr)
 {
-	if (num > LLONG_MAX - 1 && sign == -1)
-		return (0);
-	if (num > LLONG_MAX && sign == 1)
-		return (-1);
-	return (num * sign);
-}
-
-int				ft_atoi_double(const char **nptr)
-{
-	int					i;
-	int					sign;
-	long long			num;
+	int			i;
+	int			sign;
+	long long	num;
 
 	i = 0;
 	sign = 1;
@@ -44,10 +34,10 @@ int				ft_atoi_double(const char **nptr)
 		num *= 10;
 		num += (*(*nptr)++ - '0');
 	}
-	return (check_over_range(num, sign));
+	return (num * sign);
 }
 
-int				get_len_base(long long n, int base)
+int		ft_get_len_base(long long n, int base)
 {
 	int		len;
 
@@ -62,22 +52,52 @@ int				get_len_base(long long n, int base)
 	return (len);
 }
 
-char			*ft_uitoa_base(unsigned int n, char *base)
+char	*ft_itoa_data(int n, t_flag *data)
 {
 	long long	num;
 	char		*str;
-	long long	base_len;
+	int			len;
+
+	num = n;
+	len = ft_get_len_base(num, 10);
+	len = len > data->precision ? len : data->precision;
+	if (num < 0)
+		len += 1;
+	if (!(str = (char *)ft_calloc(len + 1, 1)))
+		return (0);
+	if (num < 0)
+	{
+		str[0] = '-';
+		num *= -1;
+	}
+	str[len--] = 0;
+	while (1)
+	{
+		if (str[len] == '-' || len < 0)
+			break ;
+		str[len--] = '0' + num % 10;
+		num /= 10;
+	}
+	return (str);
+}
+
+char	*ft_uitoa_base(unsigned int n, char *base, t_flag *data)
+{
+	long long	num;
+	char		*str;
+	int			base_len;
 	int			len;
 
 	num = n;
 	base_len = ft_strlen(base);
-	len = get_len_base(num, base_len);
+	len = ft_get_len_base(num, base_len);
+	len = len > data->precision ? len : data->precision;
 	if (!(str = (char *)malloc(len + 1)))
 		return (0);
 	if (num == 0)
 		str[0] = '0';
 	str[len--] = 0;
-	while (num > 0)
+	while (len >= 0)
 	{
 		str[len--] = base[num % base_len];
 		num /= base_len;
@@ -85,22 +105,23 @@ char			*ft_uitoa_base(unsigned int n, char *base)
 	return (str);
 }
 
-char			*ft_ultoa_base(unsigned long n, char *base)
+char	*ft_ultoa_base(unsigned long n, char *base, t_flag *data)
 {
 	long long	num;
 	char		*str;
-	long long	base_len;
+	int			base_len;
 	int			len;
 
 	num = n;
 	base_len = ft_strlen(base);
-	len = get_len_base(num, base_len);
+	len = ft_get_len_base(num, base_len);
+	len = len > data->precision ? len : data->precision;
 	if (!(str = (char *)malloc(len + 1)))
 		return (0);
 	if (num == 0)
 		str[0] = '0';
 	str[len--] = 0;
-	while (num > 0)
+	while (len >= 0)
 	{
 		str[len--] = base[num % base_len];
 		num /= base_len;
